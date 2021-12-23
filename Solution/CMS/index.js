@@ -1,12 +1,14 @@
 const express=require('express')
 require('dotenv').config()
 const app=express()
-const port=5000
+const port=5001
 
 
 //My custom routes
 const novice =require('./routes/novice')
-const conn=require('./DB/dbConn')
+const users= require('./routes/users')
+
+app.use(express.json())
 //when client visits home
 app.get('/', (req,res)=>{
     res.send("Hola")
@@ -14,6 +16,8 @@ app.get('/', (req,res)=>{
 })
 
 app.use('/novice',novice)
+app.use('/users', users)
+
 
 app.listen( process.env.PORT || port,()=>{
     console.log(`Server is running on port: ${process.env.PORT || port}`)
